@@ -38,6 +38,7 @@ export default function HomePage(props) {
         }}
         {...rest}
         />
+        <hi>Hi</hi>.
         <Parallax filter image={require("../assets/images/temp.jpg")}>
             <div className={classes.container}>
             {/* <GridContainer>
