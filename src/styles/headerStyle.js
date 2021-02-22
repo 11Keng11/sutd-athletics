@@ -146,6 +146,15 @@ const headerStyle = {
     paddingRight: "0px",
     paddingLeft: "0",
     ...transition
+  },
+  dropdownLink: {
+    "&,&:hover,&:focus": {
+      color: "inherit",
+      textDecoration: "none",
+      display: "block",
+      padding: "10px 20px",
+      background: "rgba(200, 200, 200, 0)",
+    }
   }
 };
 

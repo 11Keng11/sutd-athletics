@@ -25,6 +25,7 @@ import {CloudUpload} from "@material-ui/icons";
 import CreateIcon from '@material-ui/icons/Create';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import ScoreIcon from '@material-ui/icons/Score';
 
 // core components
 import CustomDropdown from "./CustomDropdown.js";
@@ -196,7 +197,7 @@ export default function HeaderLinks(props) {
             }}
             buttonIcon={CreateIcon}
             dropdownList={[
-              <Link to="/signup-page" className={classes.dropdownLink}>
+              <Link to="/signup" className={classes.dropdownLink}>
                 Sign Up Test
               </Link>,
               <a
@@ -224,8 +225,13 @@ export default function HeaderLinks(props) {
             className={classes.navLink}
             onClick={handleClickOpen}
           >
-            <CloudUpload className={classes.icons} /> Upload Run
+                <CloudUpload className={classes.icons} /> Upload Run
           </Button>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Link to="/scoreboard" className={classes.navLink}>
+            <ScoreIcon className={classes.icons} /> Scoreboard
+          </Link>
         </ListItem>
         <ListItem className={classes.listItem}>
           <Button
