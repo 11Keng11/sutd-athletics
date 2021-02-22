@@ -15,6 +15,7 @@ import {CloudUpload} from "@material-ui/icons";
 import CreateIcon from '@material-ui/icons/Create';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import HomeIcon from '@material-ui/icons/Home';
 
 // core components
 import CustomDropdown from "./CustomDropdown.js";
@@ -35,7 +36,7 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
-          <InfoIcon className={classes.icons} /> Run Info
+          <HomeIcon className={classes.icons} /> Home
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
