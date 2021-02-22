@@ -105,7 +105,8 @@ const headerLinksStyle = theme => ({
       color: "inherit",
       textDecoration: "none",
       display: "block",
-      padding: "10px 20px"
+      padding: "10px 20px",
+      background: "rgba(200, 200, 200, 0.2)",
     }
   },
   ...tooltip,

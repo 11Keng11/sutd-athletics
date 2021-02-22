@@ -11,7 +11,10 @@ import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
+import {CloudUpload} from "@material-ui/icons";
+import CreateIcon from '@material-ui/icons/Create';
+import InfoIcon from '@material-ui/icons/Info';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 // core components
 import CustomDropdown from "./CustomDropdown.js";
@@ -26,25 +29,50 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
+        <Button
+          // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}
+        >
+          <InfoIcon className={classes.icons} /> Run Info
+        </Button>
+      </ListItem>
+      <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
-          buttonText="Components"
+          buttonText="Sign Up"
           buttonProps={{
             className: classes.navLink,
             color: "transparent"
           }}
-          buttonIcon={Apps}
+          buttonIcon={CreateIcon}
           dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              All components
+            // <Link to="/results-page" className={classes.dropdownLink}>
+            //   Results
+            // </Link>,
+            <Link to="/signup-page" className={classes.dropdownLink}>
+              Sign Up Test
             </Link>,
+            // <Link to="/upload-page" className={classes.dropdownLink}>
+            //   Upload Run
+            // </Link>,
             <a
-              href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
               target="_blank"
               className={classes.dropdownLink}
             >
-              Documentation
+              Team
             </a>
+            ,
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeXqvnAZfdSZ4hqwttJkPezMqE_yjFkGqcMU_UqVq9p8AIETQ/viewform?usp=sf_link"
+              target="_blank"
+              className={classes.dropdownLink}
+            >
+              Individual
+            </a>
+            
           ]}
         />
       </ListItem>
@@ -55,42 +83,18 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
-          <CloudDownload className={classes.icons} /> Download
+          <CloudUpload className={classes.icons} /> Upload Run
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-twitter"
-          title="Follow us on twitter"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
+        <Button
+          // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}
         >
-          <Button
-            href="https://www.instagram.com/sutd.athletics/?hl=en"
-            target="_blank"
-            color="transparent"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-twitter"} />
-          </Button>
-        </Tooltip>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-facebook"
-          title="Follow us on facebook"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            color="transparent"
-            href="https://www.instagram.com/sutd.athletics/?hl=en"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-facebook"} />
-          </Button>
-        </Tooltip>
+          <LiveHelpIcon className={classes.icons} /> FAQ
+        </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
         <Tooltip

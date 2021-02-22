@@ -1,0 +1,19 @@
+.home {
+    background-image: url("../assets/images/Background.png");
+    min-width: 100%;
+    min-height: 110vh;
+    text-align: center;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position:center center;
+    position: relative;
+
+}
+
+.background-video {
+    width: 100%;
+    min-height: 100%;
+    position: fixed;
+    top: -10vh;
+
+}
