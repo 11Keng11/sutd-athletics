@@ -3,7 +3,7 @@ import React from "react";
 
 import Papa from "papaparse";
 
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Backdrop, CircularProgress } from '@material-ui/core';
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Backdrop, CircularProgress, Chip } from '@material-ui/core';
 
 import PersonIcon from '@material-ui/icons/Person';
 import GroupIcon from '@material-ui/icons/Group';
@@ -26,11 +26,21 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const FirstTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
+    backgroundColor: "#ffb791",
+  },
+}))(TableRow);
+
+const SecondTableRow = withStyles((theme) => ({
+  root: {
+    backgroundColor: "#ffd3bc",
+  },
+}))(TableRow);
+
+const ThirdTableRow = withStyles((theme) => ({
+  root: {
+    backgroundColor: "#ffece2",
   },
 }))(TableRow);
 
@@ -40,46 +50,79 @@ export default function ResultsPage(props) {
 
   const [nameMap, setNameMap] = React.useState(Object());
   const [tableData, setTableData] = React.useState([]);
+  const [teamData, setTeamData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     setIsLoading(true);
     injectIndividualData();
     injectTeamData();
-    setInterval(getRunData.bind(this), 2000);
+    getRunData()
   }, [])
 
   const sortRunData = (runData) => {
-    var crrtRunData = runData;
     var sortedRunData = [];
-    Object.keys(crrtRunData).forEach(k => {
+    Object.keys(runData).forEach(k => {
       sortedRunData.push({
         sid: k,
         name: nameMap[k] === undefined ? 'loading...' : nameMap[k].name,
-        distance: runData[k] === undefined ? 0.00 : runData[k].distance.toFixed(2),
-        team: runData[k] === undefined ? 'loading...' : runData[k].team,
+        distance: runData[k].distance.toFixed(2),
+        team: runData[k].team,
       })
     })
+
     sortedRunData.sort((a, b) => {
       return b.distance - a.distance
     })
     
-    if (sortedRunData.length >= tableData.length) setTableData(sortedRunData);
+    if (sortedRunData.length >= tableData.length) {
+      setTableData(sortedRunData);
+    }
+    setTimeout(() => {
+      getRunData();
+    }, 5000);
+  }
+
+  const sortTeamData = (teamDataObj) => {
+    var sortedTeamData = [];
+    Object.keys(teamDataObj).forEach(k => {
+      sortedTeamData.push({
+        team: k,
+        distance: teamDataObj[k].distance.toFixed(2),
+      })
+    })
+
+    sortedTeamData.sort((a, b) => {
+      return b.distance - a.distance
+    })
+    
+    if (sortedTeamData.length >= tableData.length) {
+      setTeamData(sortedTeamData);
+    }
+    console.log(sortedTeamData);
   }
 
   const getRunData = () => {
-    setIsLoading(false);
     Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=29592829&single=true&output=csv", {
       download: true,
       header: true,
       skipEmptyLines: true,
       complete: function(results) {
+        setIsLoading(false);
         var data = results.data;
         var crrtRunData = Object();
+        var teamDataObj = Object();
         data.forEach(d => {
           var teamName = d["Team Name"];
           var sid = d["Student ID"];
           var distance = parseFloat(d["Distance Ran (in km, max 2dp, e.g. 2.40km)"]);
+          if (teamName in teamDataObj) {
+            teamDataObj[teamName].distance += distance
+          } else {
+            teamDataObj[teamName] = {
+              distance: distance
+            }
+          }
           if (sid in crrtRunData) {
             crrtRunData[sid].distance += distance
           } else {
@@ -89,6 +132,7 @@ export default function ResultsPage(props) {
             }
           }
         })
+        sortTeamData(teamDataObj);
         sortRunData(crrtRunData);
       }
     })
@@ -162,6 +206,7 @@ export default function ResultsPage(props) {
         <div className={classes.scoreboardTextWrapper}>
           ScoreBoard
         </div>
+        <div>The leaderboard is refreshed every 5 seconds.</div>
       </div>
       <div className={classes.scoreboardContentWrapper}>
         <div className={classes.scoreboardTitleWrapper}>
@@ -183,13 +228,37 @@ export default function ResultsPage(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map((d, idx) => 
-                (<TableRow key={idx}>
+              {tableData.map((d, idx) => {
+                if (idx+1 === 1) {
+                  return <FirstTableRow key={idx}>
+                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.name}</TableCell>
+                    <TableCell>{d.distance}</TableCell>
+                    <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                  </FirstTableRow>
+                } else if (idx+1 === 2) {
+                  return <SecondTableRow key={idx}>
+                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.name}</TableCell>
+                    <TableCell>{d.distance}</TableCell>
+                    <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                  </SecondTableRow>
+                } else if (idx+1 === 3) {
+                  return <ThirdTableRow key={idx}>
+                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.name}</TableCell>
+                    <TableCell>{d.distance}</TableCell>
+                    <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                  </ThirdTableRow>
+                } else {
+                  return <TableRow key={idx}>
                   <TableCell>{idx+1}</TableCell>
                   <TableCell>{d.name}</TableCell>
                   <TableCell>{d.distance}</TableCell>
-                  <TableCell>{d.team}</TableCell>
-                </TableRow>)
+                  <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                </TableRow>
+                }
+              }
               )}
             </TableBody>
           </Table>
@@ -199,6 +268,49 @@ export default function ResultsPage(props) {
           <GroupIcon color="secondary" />
           <Typography variant="h6" style={{marginLeft: 5}} >Team Rank</Typography>
         </div>
+
+        <TableContainer component={Paper}>
+          <Table style={{minWidth: 700}}>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Rank</StyledTableCell>
+                <StyledTableCell>Team Name</StyledTableCell>
+                <StyledTableCell>Distance Ran (in km)</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {teamData.map((d, idx) => 
+                {
+                  if (idx+1 === 1) {
+                    return <FirstTableRow key={idx}>
+                      <TableCell>{idx+1}</TableCell>
+                      <TableCell>{d.team}</TableCell>
+                      <TableCell>{d.distance}</TableCell>
+                    </FirstTableRow>
+                  } else if (idx+1 === 2) {
+                    return <SecondTableRow key={idx}>
+                      <TableCell>{idx+1}</TableCell>
+                      <TableCell>{d.team}</TableCell>
+                      <TableCell>{d.distance}</TableCell>
+                    </SecondTableRow>
+                  } else if (idx+1 === 3) {
+                    return <ThirdTableRow key={idx}>
+                      <TableCell>{idx+1}</TableCell>
+                      <TableCell>{d.team}</TableCell>
+                      <TableCell>{d.distance}</TableCell>
+                    </ThirdTableRow>
+                  } else {
+                    return <TableRow key={idx}>
+                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.team}</TableCell>
+                    <TableCell>{d.distance}</TableCell>
+                  </TableRow>
+                  }
+                })
+                }
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   )

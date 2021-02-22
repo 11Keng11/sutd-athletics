@@ -6,8 +6,9 @@ const scoreboardStyle = theme => ({
     boxShadow: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
     textAlign: 'center',
     color: "white",
-    fontWeight: 700,
+    fontWeight: 200,
     display: "flex",
+    flexFlow: "column",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -19,6 +20,7 @@ const scoreboardStyle = theme => ({
   },
   scoreboardContentWrapper: {
     marginTop: 30,
+    marginBottom: 80,
     display: "flex",
     flexFlow: "column",
     alignItems: "center",
