@@ -187,6 +187,7 @@ export default function HeaderLinks(props) {
         </ListItem>
         <ListItem className={classes.listItem}>
           <CustomDropdown
+            hoverColor="danger"
             noLiPadding
             buttonText="Sign Up"
             buttonProps={{
