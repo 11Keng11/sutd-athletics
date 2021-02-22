@@ -1,7 +1,8 @@
 .home {
     background-image: url("../assets/images/Background.png");
-    min-width: 100%;
-    min-height: 110vh;
+    height: 100vh;
+    width: 100vw;
+    min-height: 100%;
     text-align: center;
     background-size: cover;
     background-repeat:no-repeat;
@@ -11,9 +12,8 @@
 }
 
 .background-video {
-    width: 100%;
-    min-height: 100%;
+    width: 100vw;
+    min-height: 100vh;
     position: fixed;
     top: -10vh;
-
 }

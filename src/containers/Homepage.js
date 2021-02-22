@@ -9,7 +9,7 @@ import Header from "../components/Header.js";
 import HeaderLinks from "../components/HeaderLinks.js";
 
 import styles from "../styles/homePage.js";
-import backgroundVideo from '../assets/images/Background.mp4'
+// import backgroundVideo from '../assets/images/Background.mp4'
 import "../styles/homePage.css"
 
 const dashboardRoutes = [];
@@ -35,7 +35,7 @@ export default function HomePage(props) {
         {...rest}
         />
         <video className = "background-video" autoPlay muted loop>
-          <source src={backgroundVideo} type="video/mp4" />
+          <source src={require('../assets/images/Background.mp4')} type="video/mp4" />
                 Your browser does not support the video tag.
         </video>
         <div className="home">
