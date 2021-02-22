@@ -112,6 +112,14 @@ const headerLinksStyle = theme => ({
   ...tooltip,
   marginRight5: {
     marginRight: "5px"
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 999999,
+    color: '#fff',
+  },
+  loadText: {
+    ...theme.typography.button,
+    marginLeft: 10,
   }
 });
 
