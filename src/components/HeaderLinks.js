@@ -73,13 +73,16 @@ export default function HeaderLinks(props) {
             var name = d["Name"];
             sids[sid] = {
               name: name,
+              team: "Individual"
             }
           } else if (aloneStatus === "Group") {
             for (var i of ["First", "Second", "Third", "Fourth", "Fifth"] ) {
               sid = d[`${i} Member Student / Staff ID`];
               name = d[`${i} Member Name`];
+              var teamName = d["Group Name"];
               sids[sid] = {
                 name: name,
+                team: teamName,
               }
             }
           }
@@ -126,7 +129,7 @@ export default function HeaderLinks(props) {
         setIsLoading(false);
         setStudentID("");
         handleClose();
-        var teamName = sidMap[sid]
+        var teamName = sidMap[sid].team
         var url = createPrefilledLink(sid, teamName)
         window.open(url, "_blank")
       } else {
