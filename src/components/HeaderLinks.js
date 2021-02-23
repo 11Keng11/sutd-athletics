@@ -148,6 +148,7 @@ export default function HeaderLinks(props) {
         open={open}
         onClose={handleClose}
         PaperComponent={PaperComponent}
+        fullWidth="70vw"
       >
         <Backdrop className={classes.backdrop} open={isLoading}>
           <CircularProgress color="inherit" />
@@ -157,7 +158,7 @@ export default function HeaderLinks(props) {
           Enter your Student ID:
         </DialogTitle>
         <DialogContent>
-          <TextField style={{width: "20vw"}} label="Student ID" variant="outlined" color="secondary" helperText={errorText} error={hasError} onChange={onStudentIDChange} value={studentID} onKeyPress={handleEnter} />
+          <TextField style={{width: "100%"}} label="Student ID" variant="outlined" color="secondary" helperText={errorText} error={hasError} onChange={onStudentIDChange} value={studentID} onKeyPress={handleEnter} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleSubmit} color="danger">

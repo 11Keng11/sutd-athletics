@@ -24,7 +24,7 @@ const scoreboardStyle = theme => ({
     display: "flex",
     flexFlow: "column",
     alignItems: "center",
-    width: "80vw"
+    width: "90vw"
   },
   scoreboardTitleWrapper: {
     marginTop: 20,
