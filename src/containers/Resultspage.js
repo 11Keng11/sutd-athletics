@@ -252,7 +252,7 @@ export default function ResultsPage(props) {
         <div className={classes.scoreboardTextWrapper}>
           ScoreBoard
         </div>
-        <div>The leaderboard is refreshed every 5 minutes.</div>
+        <Typography variant="body1">The leaderboard is refreshed every 5 minutes.</Typography>
       </div>
       <div className={classes.scoreboardContentWrapper}>
         <div className={classes.scoreboardTitleWrapper}>
