@@ -31,7 +31,7 @@ import ScoreIcon from '@material-ui/icons/Score';
 // core components
 import CustomDropdown from "./CustomDropdown.js";
 import Button from "./Button.js";
-import {links} from "../links.js";
+import {links, createPrefilledLink} from "../links.js";
 
 import styles from "../styles/headerLinksStyle.js";
 
@@ -51,53 +51,38 @@ export default function HeaderLinks(props) {
   const [studentID, setStudentID] = React.useState('');
   const [hasError, setHasError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
-  const [teamData, setTeamData] = React.useState([]);
-  const [individualData, setIndividualData] = React.useState([]);
   const [sidMap, setSidMap] = React.useState(Object());
   const [isLoading, setIsLoading] = React.useState(false);
 
-  // Teams
+  // Runner Data
   React.useEffect(() => {
-    getTeamData()
+    getRunnerData()
   }, [])
 
-  // Individuals
-  React.useEffect(() => {
-    getIndividualData()
-  }, [])
-
-  const getTeamData = () => {
-    Papa.parse(links["teamDataLink"], {
+  const getRunnerData = () => {
+    Papa.parse(links.signupDataLink, {
       download: true,
       header: true,
       complete: function(results) {
         var data = results.data;
-        setTeamData(data);
         var sids = sidMap;
-        teamData.forEach(d => {
-          for (var i=1; i<=5; i++) {
-            var id = `Student ID (Member ${i})`;
-            var teamName = "Team Name";
-            sids[d[id]] = d[teamName]
+        data.forEach(d => {
+          var aloneStatus = d["Are you registering alone or for a group"]
+          if (aloneStatus === "Alone") {
+            var sid = d["Student / Staff ID "];
+            var name = d["Name"];
+            sids[sid] = {
+              name: name,
+            }
+          } else if (aloneStatus === "Group") {
+            for (var i of ["First", "Second", "Third", "Fourth", "Fifth"] ) {
+              sid = d[`${i} Member Student / Staff ID`];
+              name = d[`${i} Member Name`];
+              sids[sid] = {
+                name: name,
+              }
+            }
           }
-        })
-        setSidMap(sids);
-      }
-    })
-  }
-
-  const getIndividualData = () => {
-    Papa.parse("", {
-      download: true,
-      header: true,
-      complete: function(results) {
-        var data = results.data;
-        setIndividualData(data);
-        var sids = sidMap;
-        individualData.forEach(d => {
-          var id = "Student ID";
-          var teamName = "Individual";
-          sids[d[id]] = teamName;
         })
         setSidMap(sids);
       }
@@ -128,22 +113,21 @@ export default function HeaderLinks(props) {
   }
 
   const handleSubmit = () => {
-    if (studentID === "") {
+    if (studentID === "" || studentID === undefined || studentID === null) {
       setHasError(true);
       setErrorText("Please enter your Student ID!")
       return
     }
     var sid = studentID;
-    getIndividualData();
-    getTeamData();
+    getRunnerData();
     setIsLoading(true);
     setTimeout(() => {
       if (sid in sidMap) {
         setIsLoading(false);
         setStudentID("");
         handleClose();
-        var teamName = encodeURIComponent(sidMap[sid])
-        var url = `https://docs.google.com/forms/d/e/1FAIpQLScah9au6KKadhfJ4EmuLWE1tTYnwkYT6XQvLx56Q-7FLVSshw/viewform?usp=pp_url&entry.523247645=${teamName}&entry.1534597416=${sid}`
+        var teamName = sidMap[sid]
+        var url = createPrefilledLink(sid, teamName)
         window.open(url, "_blank")
       } else {
         setHasError(true);
@@ -181,63 +165,29 @@ export default function HeaderLinks(props) {
 
       <List className={classes.list}>
         <ListItem className={classes.listItem}>
-          <Button
-            // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+          <Link
             color="transparent"
-            target="_blank"
+            to="/"
             className={classes.navLink}
           >
             <HomeIcon className={classes.icons} /> Home
-          </Button>
+          </Link>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <CustomDropdown
-            hoverColor="danger"
-            noLiPadding
-            buttonText="Info"
-            buttonProps={{
-              className: classes.navLink,
-              color: "transparent"
-            }}
-            buttonIcon={InfoIcon}
-            dropdownList={[
-              <Link to="/FAQ" className={classes.dropdownLink}>
-                FAQ
-              </Link>,
-              
-             
-            ]}
-          />
+            <Link to="/faq-page" className={classes.navLink}>
+            <LiveHelpIcon className={classes.icons} /> FAQ
+            </Link>
         </ListItem>
         
         <ListItem className={classes.listItem}>
-          <CustomDropdown
-            hoverColor="danger"
-            noLiPadding
-            buttonText="Sign Up"
-            buttonProps={{
-              className: classes.navLink,
-              color: "transparent"
-            }}
-            buttonIcon={CreateIcon}
-            dropdownList={[
-              <a
-                href= {"https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"}
-                target="_blank"
-                className={classes.dropdownLink}
-              >
-                Team
-              </a>
-              ,
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeXqvnAZfdSZ4hqwttJkPezMqE_yjFkGqcMU_UqVq9p8AIETQ/viewform?usp=sf_link"
-                target="_blank"
-                className={classes.dropdownLink}
-              >
-                Individual
-              </a>
-            ]}
-          />
+          <Link
+            color="transparent"
+            className={classes.navLink}
+            onClick={() => {window.open(links.signupLink, "_blank")}}
+            to="#"
+          >
+              <CreateIcon className={classes.icons} /> Sign Up
+          </Link>
         </ListItem>
         <ListItem className={classes.listItem}>
           <Button
