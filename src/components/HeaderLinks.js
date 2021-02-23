@@ -25,7 +25,11 @@ import {CloudUpload} from "@material-ui/icons";
 import CreateIcon from '@material-ui/icons/Create';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+<<<<<<< HEAD
 import HomeIcon from '@material-ui/icons/Home';
+=======
+import ScoreIcon from '@material-ui/icons/Score';
+>>>>>>> master
 
 // core components
 import CustomDropdown from "./CustomDropdown.js";
@@ -218,6 +222,12 @@ export default function HeaderLinks(props) {
             }}
             buttonIcon={CreateIcon}
             dropdownList={[
+<<<<<<< HEAD
+=======
+              <Link to="/signup" className={classes.dropdownLink}>
+                Sign Up Test
+              </Link>,
+>>>>>>> master
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
                 target="_blank"
@@ -242,10 +252,28 @@ export default function HeaderLinks(props) {
             className={classes.navLink}
             onClick={handleClickOpen}
           >
-            <CloudUpload className={classes.icons} /> Upload Run
+                <CloudUpload className={classes.icons} /> Upload Run
           </Button>
         </ListItem>
         <ListItem className={classes.listItem}>
+<<<<<<< HEAD
+=======
+          <Link to="/scoreboard" className={classes.navLink}>
+            <ScoreIcon className={classes.icons} /> Scoreboard
+          </Link>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Button
+            // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+            color="transparent"
+            target="_blank"
+            className={classes.navLink}
+          >
+            <LiveHelpIcon className={classes.icons} /> FAQ
+          </Button>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+>>>>>>> master
           <Tooltip
             id="instagram-tooltip"
             title="Follow us on instagram"
