@@ -35,6 +35,9 @@ const scoreboardStyle = theme => ({
     textAlign: "center",
     margin: "20 20 20 20"
   },
+  unverifiedText: {
+    color: "rgba(0,0,0,0.5)"
+  },
   backdrop: {
     zIndex: theme.zIndex.drawer + 999999,
     color: '#fff',

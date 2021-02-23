@@ -3,7 +3,7 @@ import React from "react";
 
 import Papa from "papaparse";
 
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Backdrop, CircularProgress, Chip, TextField, InputBase, IconButton } from '@material-ui/core';
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Backdrop, CircularProgress, Chip, InputBase, IconButton } from '@material-ui/core';
 
 import PersonIcon from '@material-ui/icons/Person';
 import GroupIcon from '@material-ui/icons/Group';
@@ -14,6 +14,7 @@ import Header from "../components/Header.js";
 import HeaderLinks from "../components/HeaderLinks.js";
 import styles from "../styles/scoreboard.js";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { links } from "../links.js";
 
 const useStyles = makeStyles(styles);
 
@@ -26,6 +27,13 @@ const StyledTableCell = withStyles((theme) => ({
     fontSize: 14,
   },
 }))(TableCell);
+
+const UnverifiedTableCell = withStyles((theme) => ({
+  root: {
+    backgroundColor: "#e0e0e0",
+    color: "#6d6d6d"
+  },
+}))
 
 const FirstTableRow = withStyles((theme) => ({
   root: {
@@ -60,8 +68,7 @@ export default function ResultsPage(props) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
-    injectIndividualData(nameMap);
-    injectTeamData(nameMap);
+    injectRunnerData(nameMap);
     getRunData();
     setIsLoading(true);
     var s = setInterval(() => {
@@ -71,15 +78,13 @@ export default function ResultsPage(props) {
   }, [])
 
   React.useEffect(() => {
-    injectIndividualData(nameMap);
-    injectTeamData(nameMap);
+    injectRunnerData(nameMap);
     getRunData();
   }, [nameMap])
 
   React.useEffect(() => {
     if (timestamp % 300 === 0) {
-      injectIndividualData(nameMap);
-      injectTeamData(nameMap);
+      injectRunnerData(nameMap);
       getRunData();
     }
   }, [timestamp])
@@ -99,6 +104,7 @@ export default function ResultsPage(props) {
         sid: k,
         name: nameMap[k] === undefined ? 'loading...' : nameMap[k].name,
         distance: runData[k].distance.toFixed(2),
+        unverifiedDistance: runData[k].unverifiedDistance.toFixed(2),
         team: runData[k].team,
       })
     })
@@ -119,6 +125,7 @@ export default function ResultsPage(props) {
       sortedTeamData.push({
         team: k,
         distance: teamDataObj[k].distance.toFixed(2),
+        unverifiedDistance: teamDataObj[k].unverifiedDistance.toFixed(2),
       })
     })
 
@@ -133,35 +140,65 @@ export default function ResultsPage(props) {
     setTeamData(sortedTeamData);
   }
 
-  const getRunData = async () => {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=29592829&single=true&output=csv", {
+  const getRunData = () => {
+    Papa.parse(links.uploadRunLink, {
       download: true,
       header: true,
       skipEmptyLines: true,
+      escapeChar: '"',
       complete: function(results) {
         setIsLoading(false);
-        console.log(results)
         var data = results.data;
         var crrtRunData = Object();
         var teamDataObj = Object();
         data.forEach(d => {
-          var teamName = d["Team Name"];
-          var sid = d["Student ID"];
-          var distance = parseFloat(d["Distance Ran (in km, max 2dp, e.g. 2.40km)"]);
-          if (teamName in teamDataObj) {
-            teamDataObj[teamName].distance += distance
-          } else {
-            if (teamName !== "Individual")
-              teamDataObj[teamName] = {
-                distance: distance
+          var timestamp = d["Timestamp"];
+          if (timestamp === "" || timestamp === undefined || timestamp === null) {}
+          else {
+            var teamName = d["Team Name "];
+            var sid = d["Student/Staff ID"];
+            var distance = parseFloat(d["Distance clocked"]);
+            var verified = d["Verified"] // TRUE or FALSE
+            if (teamName in teamDataObj) {
+              if (verified === "TRUE") {
+                teamDataObj[teamName].distance += distance
+              } else {
+                teamDataObj[teamName].unverifiedDistance += distance
               }
-          }
-          if (sid in crrtRunData) {
-            crrtRunData[sid].distance += distance
-          } else {
-            crrtRunData[sid] = {
-              team: teamName,
-              distance: distance
+            } else {
+              if (teamName !== "Individual")
+                if (verified === "TRUE") {
+                  teamDataObj[teamName] = {
+                    distance: distance,
+                    unverifiedDistance: 0.00
+                  }
+                } else {
+                  teamDataObj[teamName] = {
+                    distance: 0.00,
+                    unverifiedDistance: distance
+                  }
+                }
+            }
+            if (sid in crrtRunData) {
+              if (verified === "TRUE") {
+                crrtRunData[sid].distance += distance
+              } else {
+                crrtRunData[sid].unverifiedDistance += distance
+              }
+            } else {
+              if (verified === "TRUE") {
+                crrtRunData[sid] = {
+                  team: teamName,
+                  distance: distance,
+                  unverifiedDistance: 0.00,
+                }
+              } else {
+                crrtRunData[sid] = {
+                  team: teamName,
+                  distance: 0.00,
+                  unverifiedDistance: distance,
+                }
+              }
             }
           }
         })
@@ -171,8 +208,8 @@ export default function ResultsPage(props) {
     })
   }
 
-  const injectTeamData = (nameMap) => {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=465189133&single=true&output=csv", {
+  const injectRunnerData = (nameMap) => {
+    Papa.parse(links.signupDataLink, {
       download: true,
       header: true,
       fastMode: true,
@@ -180,39 +217,28 @@ export default function ResultsPage(props) {
       complete: function(results) {
         var data = results.data;
         data.forEach(d => {
-          for (var i=1; i<=5; i++) {
-            var id = d[`Student ID (Member ${i})`];
-            var name = d[`Name (Member ${i})`];
-            var email = d[`Email (Member ${i})`];
-            if (!(id in nameMap)) {
-              nameMap[id] = {
+          var aloneStatus = d["Are you registering alone or for a group"]
+          if (aloneStatus === "Alone") {
+            var sid = d["Student / Staff ID "];
+            var name = d["Name"];
+            var email = d["Email"]
+            if (!(sid in nameMap)) {
+              nameMap[sid] = {
                 name: name,
                 email: email,
               }
             }
-          }
-        })
-        setNameMap(nameMap);
-      }
-    })
-  }
-
-  const injectIndividualData = (nameMap) => {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=1779625534&single=true&output=csv", {
-      download: true,
-      header: true,
-      fastMode: true,
-      skipEmptyLines: true,
-      complete: function(results) {
-        var data = results.data;
-        data.forEach(d => {
-          var sid = d["Student ID"];
-          var name = d["Name"];
-          var email = d["Email address"]
-          if (!(sid in nameMap)) {
-            nameMap[sid] = {
-              name: name,
-              email: email,
+          } else if (aloneStatus === "Group") {
+            for (var i of ["First", "Second", "Third", "Fourth", "Fifth"] ) {
+              sid = d[`${i} Member Student / Staff ID`];
+              name = d[`${i} Member Name`];
+              email = d[`${i} Member Email`];
+              if (!(sid in nameMap)) {
+                nameMap[sid] = {
+                  name: name,
+                  email: email,
+                }
+              }
             }
           }
         })
@@ -227,7 +253,6 @@ export default function ResultsPage(props) {
       var filteredData = data.filter(d => {
         return d.sid.includes(search) || d.name.toLowerCase().includes(search)
       });
-      console.log(filteredData)
       return filteredData
     }
     if (type === "team") {
@@ -295,6 +320,7 @@ export default function ResultsPage(props) {
                 <StyledTableCell>Name</StyledTableCell>
                 <StyledTableCell>Distance Ran (in km)</StyledTableCell>
                 <StyledTableCell>Team</StyledTableCell>
+                <StyledTableCell>Unverified Distance (in km)</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -305,6 +331,7 @@ export default function ResultsPage(props) {
                     <TableCell>{d.name}</TableCell>
                     <TableCell>{d.distance}</TableCell>
                     <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                    <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                   </FirstTableRow>
                 } else if (d.rank === 2) {
                   return <SecondTableRow key={idx}>
@@ -312,6 +339,7 @@ export default function ResultsPage(props) {
                     <TableCell>{d.name}</TableCell>
                     <TableCell>{d.distance}</TableCell>
                     <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                    <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                   </SecondTableRow>
                 } else if (d.rank === 3) {
                   return <ThirdTableRow key={idx}>
@@ -319,6 +347,7 @@ export default function ResultsPage(props) {
                     <TableCell>{d.name}</TableCell>
                     <TableCell>{d.distance}</TableCell>
                     <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                    <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                   </ThirdTableRow>
                 } else {
                   return <TableRow key={idx}>
@@ -326,6 +355,7 @@ export default function ResultsPage(props) {
                   <TableCell>{d.name}</TableCell>
                   <TableCell>{d.distance}</TableCell>
                   <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
+                  <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                 </TableRow>
                 }
               }
@@ -351,6 +381,7 @@ export default function ResultsPage(props) {
                 <StyledTableCell>Rank</StyledTableCell>
                 <StyledTableCell>Team Name</StyledTableCell>
                 <StyledTableCell>Distance Ran (in km)</StyledTableCell>
+                <StyledTableCell>Unverified Distance (in km)</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -361,24 +392,28 @@ export default function ResultsPage(props) {
                       <TableCell>{d.rank}</TableCell>
                       <TableCell>{d.team}</TableCell>
                       <TableCell>{d.distance}</TableCell>
+                      <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                     </FirstTableRow>
                   } else if (d.rank === 2) {
                     return <SecondTableRow key={idx}>
                       <TableCell>{d.rank}</TableCell>
                       <TableCell>{d.team}</TableCell>
                       <TableCell>{d.distance}</TableCell>
+                      <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                     </SecondTableRow>
                   } else if (d.rank === 3) {
                     return <ThirdTableRow key={idx}>
                       <TableCell>{d.rank}</TableCell>
                       <TableCell>{d.team}</TableCell>
                       <TableCell>{d.distance}</TableCell>
+                      <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                     </ThirdTableRow>
                   } else {
                     return <TableRow key={idx}>
                     <TableCell>{idx+1}</TableCell>
                     <TableCell>{d.team}</TableCell>
                     <TableCell>{d.distance}</TableCell>
+                    <TableCell><span className={classes.unverifiedText}>{d.unverifiedDistance}</span></TableCell>
                   </TableRow>
                   }
                 })
