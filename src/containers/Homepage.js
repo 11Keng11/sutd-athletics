@@ -3,14 +3,21 @@ import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
+import classNames from "classnames";
 
 // core components
 import Header from "../components/Header.js";
 import HeaderLinks from "../components/HeaderLinks.js";
+import InfoSection from "../components/InfoSection.js";
+import Parallax from "../components/Parallax.js";
+import AboutSection from "../components/AboutSection.js";
 
-import styles from "../styles/homePage.js";
+
+import styles from "../styles/homePageStyle.js";
 import backgroundVideo from '../assets/images/Background.mp4'
 import "../styles/homePage.css"
+
+import bgImg from "../assets/images/Asset.png";
 
 const dashboardRoutes = [];
 
@@ -38,8 +45,15 @@ export default function HomePage(props) {
           <source src={backgroundVideo} type="video/mp4" />
                 Your browser does not support the video tag.
         </video>
-        <div className="home">
+
+        <Parallax image={bgImg}> </Parallax>
+        
+        <div className={classNames(classes.main, classes.mainRaised)}>
+            <div className={classes.container}>
+                <InfoSection />
+            </div>
         </div>
+        <AboutSection/>
         
     </div>
     );

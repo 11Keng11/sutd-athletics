@@ -261,10 +261,11 @@ export default function ResultsPage(props) {
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
-            height: 400,
+            height: 200,
             color: "white"
         }}
-        />
+      />
+      
       <div className={classes.scoreboardHeader}>
         <div className={classes.scoreboardTextWrapper}>
           ScoreBoard

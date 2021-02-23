@@ -1,17 +1,21 @@
-.home {
-    background-image: url("../assets/images/Background.png");
-    height: 100vh;
-    min-height: 100%;
-    text-align: center;
-    background-size: cover;
-    background-repeat:no-repeat;
-    background-position:center center;
-    position: relative;
 
-}
 
 .background-video {
     min-height: 100vh;
-    position: fixed;
+    min-width: 100vw;
+    maxHeight: 1000px;
+    overflow: hidden;
+    position: absolute;
+    backgroundPosition: center center;
+    backgroundSize: cover;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    alignItems: center;
     top: -10vh;
 }
+
+/* .sections {
+    background-color: #000 !important;
+} */

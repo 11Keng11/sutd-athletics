@@ -25,11 +25,13 @@ import {CloudUpload} from "@material-ui/icons";
 import CreateIcon from '@material-ui/icons/Create';
 import InfoIcon from '@material-ui/icons/Info';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import HomeIcon from '@material-ui/icons/Home';
 import ScoreIcon from '@material-ui/icons/Score';
 
 // core components
 import CustomDropdown from "./CustomDropdown.js";
 import Button from "./Button.js";
+import {links} from "../links.js";
 
 import styles from "../styles/headerLinksStyle.js";
 
@@ -40,6 +42,7 @@ function PaperComponent(props) {
     <Paper {...props} />
   );
 }
+
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
@@ -64,7 +67,7 @@ export default function HeaderLinks(props) {
   }, [])
 
   const getTeamData = () => {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=465189133&single=true&output=csv", {
+    Papa.parse(links["teamDataLink"], {
       download: true,
       header: true,
       complete: function(results) {
@@ -84,7 +87,7 @@ export default function HeaderLinks(props) {
   }
 
   const getIndividualData = () => {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=1779625534&single=true&output=csv", {
+    Papa.parse("", {
       download: true,
       header: true,
       complete: function(results) {
@@ -175,6 +178,7 @@ export default function HeaderLinks(props) {
           </Button>
         </DialogActions>
       </Dialog>
+
       <List className={classes.list}>
         <ListItem className={classes.listItem}>
           <Button
@@ -183,9 +187,29 @@ export default function HeaderLinks(props) {
             target="_blank"
             className={classes.navLink}
           >
-            <InfoIcon className={classes.icons} /> Run Info
+            <HomeIcon className={classes.icons} /> Home
           </Button>
         </ListItem>
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            hoverColor="danger"
+            noLiPadding
+            buttonText="Info"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={InfoIcon}
+            dropdownList={[
+              <Link to="/FAQ" className={classes.dropdownLink}>
+                FAQ
+              </Link>,
+              
+             
+            ]}
+          />
+        </ListItem>
+        
         <ListItem className={classes.listItem}>
           <CustomDropdown
             hoverColor="danger"
@@ -197,11 +221,8 @@ export default function HeaderLinks(props) {
             }}
             buttonIcon={CreateIcon}
             dropdownList={[
-              <Link to="/signup" className={classes.dropdownLink}>
-                Sign Up Test
-              </Link>,
               <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
+                href= {"https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"}
                 target="_blank"
                 className={classes.dropdownLink}
               >
@@ -215,7 +236,6 @@ export default function HeaderLinks(props) {
               >
                 Individual
               </a>
-              
             ]}
           />
         </ListItem>
@@ -229,20 +249,11 @@ export default function HeaderLinks(props) {
           </Button>
         </ListItem>
         <ListItem className={classes.listItem}>
-          <Link to="/scoreboard" className={classes.navLink}>
+          <Link to="/scoreboard-page" className={classes.navLink}>
             <ScoreIcon className={classes.icons} /> Scoreboard
           </Link>
         </ListItem>
-        <ListItem className={classes.listItem}>
-          <Button
-            // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-            color="transparent"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <LiveHelpIcon className={classes.icons} /> FAQ
-          </Button>
-        </ListItem>
+        
         <ListItem className={classes.listItem}>
           <Tooltip
             id="instagram-tooltip"
