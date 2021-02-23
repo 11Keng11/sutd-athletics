@@ -141,9 +141,10 @@ export default function ResultsPage(props) {
           if (teamName in teamDataObj) {
             teamDataObj[teamName].distance += distance
           } else {
-            teamDataObj[teamName] = {
-              distance: distance
-            }
+            if (teamName !== "Individual")
+              teamDataObj[teamName] = {
+                distance: distance
+              }
           }
           if (sid in crrtRunData) {
             crrtRunData[sid].distance += distance
