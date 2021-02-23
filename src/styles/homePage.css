@@ -2,10 +2,10 @@
 
 .background-video {
     min-height: 100vh;
-    min-width: 110vw;
+    min-width: 100vw;
     maxHeight: 1000px;
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     backgroundPosition: center center;
     backgroundSize: cover;
     margin: 0;
@@ -13,7 +13,7 @@
     border: 0;
     display: flex;
     alignItems: center;
-    top: -17vh;
+    top: -10vh;
 }
 
 /* .sections {

@@ -31,6 +31,7 @@ import ScoreIcon from '@material-ui/icons/Score';
 // core components
 import CustomDropdown from "./CustomDropdown.js";
 import Button from "./Button.js";
+import {links} from "../links.js";
 
 import styles from "../styles/headerLinksStyle.js";
 
@@ -42,6 +43,7 @@ function PaperComponent(props) {
   );
 }
 
+console.log("check link",links["teamSignupLink"])
 export default function HeaderLinks(props) {
   const classes = useStyles();
 
@@ -220,7 +222,7 @@ export default function HeaderLinks(props) {
             buttonIcon={CreateIcon}
             dropdownList={[
               <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
+                href= {"https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"}
                 target="_blank"
                 className={classes.dropdownLink}
               >
@@ -251,16 +253,7 @@ export default function HeaderLinks(props) {
             <ScoreIcon className={classes.icons} /> Scoreboard
           </Link>
         </ListItem>
-        <ListItem className={classes.listItem}>
-          <Button
-            // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-            color="transparent"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <LiveHelpIcon className={classes.icons} /> FAQ
-          </Button>
-        </ListItem>
+        
         <ListItem className={classes.listItem}>
           <Tooltip
             id="instagram-tooltip"

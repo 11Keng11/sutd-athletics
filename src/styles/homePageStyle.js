@@ -4,6 +4,7 @@ const homePageStyle = {
   container: {
     zIndex: "12",
     color: "#FFFFFF",
+    
     ...container
   },
   title: {
@@ -21,7 +22,8 @@ const homePageStyle = {
     margin: "10px auto 0"
   },
   main: {
-    background: "#FFFFFF",
+    // background: "#FFFFFF",
+    background: "#ffebee",
     position: "relative",
     zIndex: "3"
   },
