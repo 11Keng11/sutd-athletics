@@ -68,7 +68,7 @@ export default function ResultsPage(props) {
   }, [])
 
   React.useEffect(() => {
-    if (timestamp % 5 === 0) {
+    if (timestamp % 300 === 0) {
       injectIndividualData(nameMap);
       injectTeamData(nameMap);
       getRunData();
@@ -249,7 +249,7 @@ export default function ResultsPage(props) {
         <div className={classes.scoreboardTextWrapper}>
           ScoreBoard
         </div>
-        <div>The leaderboard is refreshed every 5 seconds.</div>
+        <div>The leaderboard is refreshed every 5 minutes.</div>
       </div>
       <div className={classes.scoreboardContentWrapper}>
         <div className={classes.scoreboardTitleWrapper}>
