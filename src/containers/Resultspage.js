@@ -71,6 +71,8 @@ export default function ResultsPage(props) {
   }, [])
 
   React.useEffect(() => {
+    injectIndividualData(nameMap);
+    injectTeamData(nameMap);
     getRunData();
   }, [nameMap])
 
@@ -104,6 +106,10 @@ export default function ResultsPage(props) {
     sortedRunData.sort((a, b) => {
       return b.distance - a.distance
     })
+
+    for (var rank=1; rank<=sortedRunData.length; rank++) {
+      sortedRunData[rank-1].rank = rank
+    }
     setTableData(sortedRunData);
   }
 
@@ -119,6 +125,10 @@ export default function ResultsPage(props) {
     sortedTeamData.sort((a, b) => {
       return b.distance - a.distance
     })
+
+    for (var rank=1; rank<=sortedTeamData.length; rank++) {
+      sortedTeamData[rank-1].rank = rank
+    }
     
     setTeamData(sortedTeamData);
   }
@@ -228,14 +238,16 @@ export default function ResultsPage(props) {
   }
 
   const handleIndividualSearch = e => {
-    var searchVal = e.target.value.toLowerCase();
+    var val = e.target.value === undefined ? "" : e.target.value;
+    var searchVal = val.toLowerCase();
     setIndividualSearch(searchVal);
     var filteredData = filterData(tableData, searchVal, "individual");
     setDisplayData(filteredData);
   }
 
   const handleTeamSearch = e => {
-    var searchVal = e.target.value.toLowerCase();
+    var val = e.target.value === undefined ? "" : e.target.value;
+    var searchVal = val.toLowerCase();
     setTeamSearch(searchVal);
     var filteredData = filterData(teamData, searchVal, "team");
     setDisplayTeamData(filteredData);
@@ -286,30 +298,30 @@ export default function ResultsPage(props) {
             </TableHead>
             <TableBody>
               {displayData.map((d, idx) => {
-                if (idx+1 === 1) {
+                if (d.rank === 1) {
                   return <FirstTableRow key={idx}>
-                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.rank}</TableCell>
                     <TableCell>{d.name}</TableCell>
                     <TableCell>{d.distance}</TableCell>
                     <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
                   </FirstTableRow>
-                } else if (idx+1 === 2) {
+                } else if (d.rank === 2) {
                   return <SecondTableRow key={idx}>
-                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.rank}</TableCell>
                     <TableCell>{d.name}</TableCell>
                     <TableCell>{d.distance}</TableCell>
                     <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
                   </SecondTableRow>
-                } else if (idx+1 === 3) {
+                } else if (d.rank === 3) {
                   return <ThirdTableRow key={idx}>
-                    <TableCell>{idx+1}</TableCell>
+                    <TableCell>{d.rank}</TableCell>
                     <TableCell>{d.name}</TableCell>
                     <TableCell>{d.distance}</TableCell>
                     <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
                   </ThirdTableRow>
                 } else {
                   return <TableRow key={idx}>
-                  <TableCell>{idx+1}</TableCell>
+                  <TableCell>{d.rank}</TableCell>
                   <TableCell>{d.name}</TableCell>
                   <TableCell>{d.distance}</TableCell>
                   <TableCell><Chip label={d.team} variant="outlined" /></TableCell>
@@ -343,21 +355,21 @@ export default function ResultsPage(props) {
             <TableBody>
               {displayTeamData.map((d, idx) => 
                 {
-                  if (idx+1 === 1) {
+                  if (d.rank === 1) {
                     return <FirstTableRow key={idx}>
-                      <TableCell>{idx+1}</TableCell>
+                      <TableCell>{d.rank}</TableCell>
                       <TableCell>{d.team}</TableCell>
                       <TableCell>{d.distance}</TableCell>
                     </FirstTableRow>
-                  } else if (idx+1 === 2) {
+                  } else if (d.rank === 2) {
                     return <SecondTableRow key={idx}>
-                      <TableCell>{idx+1}</TableCell>
+                      <TableCell>{d.rank}</TableCell>
                       <TableCell>{d.team}</TableCell>
                       <TableCell>{d.distance}</TableCell>
                     </SecondTableRow>
-                  } else if (idx+1 === 3) {
+                  } else if (d.rank === 3) {
                     return <ThirdTableRow key={idx}>
-                      <TableCell>{idx+1}</TableCell>
+                      <TableCell>{d.rank}</TableCell>
                       <TableCell>{d.team}</TableCell>
                       <TableCell>{d.distance}</TableCell>
                     </ThirdTableRow>
