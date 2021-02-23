@@ -33,15 +33,7 @@ const infoSectionStyle =  {
       background: "rgba(255, 121, 97, 0.5)"
     },
   },
-  dropdownLink: {
-    "&,&:hover,&:focus": {
-      color: "inherit",
-      textDecoration: "none",
-      display: "block",
-      padding: "10px 20px",
-      background: "rgba(200, 200, 200, 0.2)",
-    }
-  }
+  
 
 };
 

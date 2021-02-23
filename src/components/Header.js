@@ -61,7 +61,7 @@ export default function Header(props) {
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Link className={classes.dropdownLink} to='/' > <img src= {logo}   height="60"></img></Link>;
+  const brandComponent = <Link className={classes.dropdownLink} to='/' > <img src= {logo}   height="50vh"></img></Link>;
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>

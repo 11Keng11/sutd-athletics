@@ -3,9 +3,19 @@ import GridContainer from "./GridContainer.js";
 import GridItem from "./GridItem.js";
 import styles from "../styles/aboutSectionStyle.js";
 import { makeStyles } from "@material-ui/core/styles";
+import FinisherT from "../assets/images/FinisherT.png";
+import Button from "./Button.js";
+import {CloudUpload} from "@material-ui/icons";
+import {links} from "../links.js" ;
+
 const useStyles = makeStyles(styles);
 
-export default function AboutSection(){
+export default function AboutSection(props){
+
+    const openUpload = () => {
+        props.onUploadClick()
+    }
+
     const classes = useStyles();
     return (
         <div> 
@@ -20,13 +30,14 @@ export default function AboutSection(){
                     <GridItem xs={12} sm={12} md={6} className={classes.light}>
                         <h2 className={classes.title}> Submit Run Details </h2>
                         <h4>You can track all your mileage (in kilometres) with a range of IOS and Android apps, Such as [Garmin, Polar, Fitbit, Strava, UA running App, Adidas running App, Nike run club, Amazfit].
-                        You need to submit an activity onto our website (link) by entering - Distance, Run time, Date and a screenshot from your running app showing us the distance you ran.</h4>
+                        You need to submit your activity here by entering - Distance, Run time, Date and a screenshot from your running app showing us the distance you ran.</h4>
+                        <Button className={classes.navlink} color='danger' onClick={openUpload} > <CloudUpload/> Upload Run</Button>
                     </GridItem>
                     
                     <GridItem xs={12} sm={12} md={6}>
                         <h2 className={classes.title}>Finisher T-shirt </h2>
                         <h4>For teams and individuals who have completed their target distance (60km and 12km respectively), you will be awarded with the SUTD Athletics Virtual Run finisher dry-fit T-SHIRT! </h4>
-                        
+                        <img src={FinisherT} height = "100vh" className={classes.icons}/>
                     </GridItem>
 
                     <GridItem xs={12} sm={12} md={6} >

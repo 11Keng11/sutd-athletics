@@ -7,8 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import GridContainer from "./GridContainer.js";
 import GridItem from "./GridItem.js";
 import styles from "../styles/infoSectionStyle.js";
-import CustomDropdown from "./CustomDropdown.js";
+import Button from "./Button.js";
 import CreateIcon from '@material-ui/icons/Create';
+import {links} from "../links.js" ;
 
 const useStyles = makeStyles(styles);
 
@@ -26,33 +27,7 @@ export default function InfoSection() {
           </h3>
         </GridItem>
         <GridItem xs={12} sm={8} md={4}>
-          <CustomDropdown
-            hoverColor="danger"
-            noLiPadding
-            buttonText="Sign Up"
-            buttonProps={{
-              className: classes.navLink,
-              color: "danger"
-            }}
-            buttonIcon={CreateIcon}
-            dropdownList={[
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
-                target="_blank"
-                className={classes.dropdownLink}
-              >
-                Team
-              </a>
-              ,
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSeXqvnAZfdSZ4hqwttJkPezMqE_yjFkGqcMU_UqVq9p8AIETQ/viewform?usp=sf_link"
-                target="_blank"
-                className={classes.dropdownLink}
-              >
-                Individual
-              </a>
-            ]}
-          />
+          <Button className={classes.navlink} href = {links.signupLink} color = 'danger' size = 'lg'> <CreateIcon></CreateIcon>Sign Up</Button>
         </GridItem>
         
       </GridContainer>

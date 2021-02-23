@@ -27,13 +27,20 @@ const useStyles = makeStyles(styles);
 export default function HomePage(props) {
     const classes = useStyles();
     const { ...rest } = props;
+
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const openUpload = () => {
+        setOpenDialog(true);
+    }
+    
     return (
     <div>
         <Header
         color="transparent"
         routes={dashboardRoutes}
         brand="SUTD Athletics"
-        rightLinks={<HeaderLinks />}
+        rightLinks={<HeaderLinks openUpload={openDialog} />}
         fixed
         changeColorOnScroll={{
             height: 400,
@@ -53,7 +60,7 @@ export default function HomePage(props) {
                 <InfoSection />
             </div>
         </div>
-        <AboutSection/>
+        <AboutSection onUploadClick={openUpload}/>
         
     </div>
     );

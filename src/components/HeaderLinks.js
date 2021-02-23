@@ -59,6 +59,10 @@ export default function HeaderLinks(props) {
     getRunnerData()
   }, [])
 
+  React.useEffect(() => {
+    if(props.openUpload === true) setOpen(true)
+  },[props.openUpload])
+
   const getRunnerData = () => {
     Papa.parse(links.signupDataLink, {
       download: true,
