@@ -153,82 +153,6 @@ export default function HeaderLinks(props) {
   }
 
   return (
-    <List className={classes.list}>
-      <ListItem className={classes.listItem}>
-        <Button
-          // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <HomeIcon className={classes.icons} /> Home
-        </Button>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <CustomDropdown
-          noLiPadding
-          buttonText="Sign Up"
-          buttonProps={{
-            className: classes.navLink,
-            color: "transparent"
-          }}
-          buttonIcon={CreateIcon}
-          dropdownList={[
-            // <Link to="/results-page" className={classes.dropdownLink}>
-            //   Results
-            // </Link>,
-            <Link to="/signup-page" className={classes.dropdownLink}>
-              Sign Up Test
-            </Link>,
-            // <Link to="/upload-page" className={classes.dropdownLink}>
-            //   Upload Run
-            // </Link>,
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              Team
-            </a>
-            ,
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeXqvnAZfdSZ4hqwttJkPezMqE_yjFkGqcMU_UqVq9p8AIETQ/viewform?usp=sf_link"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              Individual
-            </a>
-            
-          ]}
-        />
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <CloudUpload className={classes.icons} /> Upload Run
-        </Button>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Button
-          // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <LiveHelpIcon className={classes.icons} /> FAQ
-        </Button>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-tooltip"
-          title="Follow us on instagram"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
     <div>
       <Dialog
         open={open}
@@ -251,6 +175,7 @@ export default function HeaderLinks(props) {
           </Button>
         </DialogActions>
       </Dialog>
+
       <List className={classes.list}>
         <ListItem className={classes.listItem}>
           <Button
@@ -259,9 +184,29 @@ export default function HeaderLinks(props) {
             target="_blank"
             className={classes.navLink}
           >
-            <InfoIcon className={classes.icons} /> Run Info
+            <HomeIcon className={classes.icons} /> Home
           </Button>
         </ListItem>
+        <ListItem className={classes.listItem}>
+          <CustomDropdown
+            hoverColor="danger"
+            noLiPadding
+            buttonText="Info"
+            buttonProps={{
+              className: classes.navLink,
+              color: "transparent"
+            }}
+            buttonIcon={InfoIcon}
+            dropdownList={[
+              <Link to="/FAQ" className={classes.dropdownLink}>
+                FAQ
+              </Link>,
+              
+             
+            ]}
+          />
+        </ListItem>
+        
         <ListItem className={classes.listItem}>
           <CustomDropdown
             hoverColor="danger"
@@ -273,9 +218,6 @@ export default function HeaderLinks(props) {
             }}
             buttonIcon={CreateIcon}
             dropdownList={[
-              <Link to="/signup-page" className={classes.dropdownLink}>
-                Sign Up Test
-              </Link>,
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfUD74OcYc7EbseXOV76P7tzyrLNVzsECin9LsARVfEQFfHLw/viewform?usp=sf_link"
                 target="_blank"
@@ -291,7 +233,6 @@ export default function HeaderLinks(props) {
               >
                 Individual
               </a>
-              
             ]}
           />
         </ListItem>
@@ -302,16 +243,6 @@ export default function HeaderLinks(props) {
             onClick={handleClickOpen}
           >
             <CloudUpload className={classes.icons} /> Upload Run
-          </Button>
-        </ListItem>
-        <ListItem className={classes.listItem}>
-          <Button
-            // href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-            color="transparent"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <LiveHelpIcon className={classes.icons} /> FAQ
           </Button>
         </ListItem>
         <ListItem className={classes.listItem}>
