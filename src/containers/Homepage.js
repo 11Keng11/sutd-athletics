@@ -17,7 +17,7 @@ import styles from "../styles/homePageStyle.js";
 import backgroundVideo from '../assets/images/Background.mp4'
 import "../styles/homePage.css"
 
-import bgImg from "../assets/images/Asset.png";
+import bgImg from "../assets/images/Background.png";
 
 const dashboardRoutes = [];
 

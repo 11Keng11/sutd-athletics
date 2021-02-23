@@ -4,7 +4,7 @@ import { title } from "./coreStyles.js";
 
 const aboutSectionStyle = theme => ({
     section: {
-        // padding: "70px 0",
+        // padding: "0 20px",
         textAlign: "left"
     },
     title: {
@@ -17,10 +17,12 @@ const aboutSectionStyle = theme => ({
     light: {
         backgroundColor: "#ffebee",
         height: "40vh",
+        padding: "0 2vw",
         
     },
     header: {
         textAlign: "center",
+        padding: "0 2vw",
     },
     dividerHor: {
         border: '2px solid #f44336',
