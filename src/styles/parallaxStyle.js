@@ -2,17 +2,18 @@ const parallaxStyle = {
   parallax: {
     height: "110vh",
     maxHeight: "1000px",
-    minWidth: "100vw",
+    minWidth: "100%",
     overflow: "hidden",
     position: "relative",
     backgroundPosition: "center center",
     backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
     margin: "0",
     padding: "0",
     border: "0",
     display: "flex",
     alignItems: "center",
-    top: "-5vh"
+    top: "-5vh",
   },
   filter: {
     "&:before": {

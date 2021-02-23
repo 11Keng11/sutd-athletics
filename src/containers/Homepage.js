@@ -48,7 +48,7 @@ export default function HomePage(props) {
         }}
         {...rest}
         />
-        <video className = "background-video" autoPlay muted loop>
+        <video className = "background-video" autoPlay muted loop width="100vw">
           <source src={backgroundVideo} type="video/mp4" />
                 Your browser does not support the video tag.
         </video>
