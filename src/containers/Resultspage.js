@@ -71,6 +71,10 @@ export default function ResultsPage(props) {
   }, [])
 
   React.useEffect(() => {
+    getRunData();
+  }, [nameMap])
+
+  React.useEffect(() => {
     if (timestamp % 300 === 0) {
       injectIndividualData(nameMap);
       injectTeamData(nameMap);
