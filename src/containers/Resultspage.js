@@ -60,6 +60,9 @@ export default function ResultsPage(props) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
+    injectIndividualData(nameMap);
+    injectTeamData(nameMap);
+    getRunData();
     setIsLoading(true);
     var s = setInterval(() => {
       setTimestamp(timestamp => timestamp + 1);
