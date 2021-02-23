@@ -3,16 +3,17 @@ import React from "react";
 
 import Papa from "papaparse";
 
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Backdrop, CircularProgress, Chip } from '@material-ui/core';
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Backdrop, CircularProgress, Chip, TextField, InputBase, IconButton } from '@material-ui/core';
 
 import PersonIcon from '@material-ui/icons/Person';
 import GroupIcon from '@material-ui/icons/Group';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 import Header from "../components/Header.js";
 import HeaderLinks from "../components/HeaderLinks.js";
 import styles from "../styles/scoreboard.js";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-
 
 const useStyles = makeStyles(styles);
 
@@ -48,17 +49,39 @@ const ThirdTableRow = withStyles((theme) => ({
 export default function ResultsPage(props) {
   const classes = useStyles();
 
+  const [timestamp, setTimestamp] = React.useState(0);
   const [nameMap, setNameMap] = React.useState(Object());
   const [tableData, setTableData] = React.useState([]);
+  const [displayData, setDisplayData] = React.useState([]);
+  const [individualSearch, setIndividualSearch] = React.useState('');
   const [teamData, setTeamData] = React.useState([]);
+  const [displayTeamData, setDisplayTeamData] = React.useState([]);
+  const [teamSearch, setTeamSearch] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     setIsLoading(true);
-    injectIndividualData();
-    injectTeamData();
-    getRunData()
+    var s = setInterval(() => {
+      setTimestamp(timestamp => timestamp + 1);
+    }, 1000);
+    return () => clearInterval(s)
   }, [])
+
+  React.useEffect(() => {
+    if (timestamp % 5 === 0) {
+      injectIndividualData(nameMap);
+      injectTeamData(nameMap);
+      getRunData();
+    }
+  }, [timestamp])
+
+  React.useEffect(() => {
+    setDisplayData(filterData(tableData, individualSearch, "individual"))
+  }, [tableData])
+
+  React.useEffect(() => {
+    setDisplayTeamData(filterData(teamData, teamSearch, "team"))
+  }, [teamData])
 
   const sortRunData = (runData) => {
     var sortedRunData = [];
@@ -74,13 +97,7 @@ export default function ResultsPage(props) {
     sortedRunData.sort((a, b) => {
       return b.distance - a.distance
     })
-    
-    if (sortedRunData.length >= tableData.length) {
-      setTableData(sortedRunData);
-    }
-    setTimeout(() => {
-      getRunData();
-    }, 5000);
+    setTableData(sortedRunData);
   }
 
   const sortTeamData = (teamDataObj) => {
@@ -96,19 +113,17 @@ export default function ResultsPage(props) {
       return b.distance - a.distance
     })
     
-    if (sortedTeamData.length >= tableData.length) {
-      setTeamData(sortedTeamData);
-    }
-    console.log(sortedTeamData);
+    setTeamData(sortedTeamData);
   }
 
-  const getRunData = () => {
+  const getRunData = async () => {
     Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=29592829&single=true&output=csv", {
       download: true,
       header: true,
       skipEmptyLines: true,
       complete: function(results) {
         setIsLoading(false);
+        console.log(results)
         var data = results.data;
         var crrtRunData = Object();
         var teamDataObj = Object();
@@ -138,7 +153,7 @@ export default function ResultsPage(props) {
     })
   }
 
-  const injectTeamData = () => {
+  const injectTeamData = (nameMap) => {
     Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=465189133&single=true&output=csv", {
       download: true,
       header: true,
@@ -146,26 +161,25 @@ export default function ResultsPage(props) {
       skipEmptyLines: true,
       complete: function(results) {
         var data = results.data;
-        var crrtNameMap = nameMap;
         data.forEach(d => {
           for (var i=1; i<=5; i++) {
             var id = d[`Student ID (Member ${i})`];
             var name = d[`Name (Member ${i})`];
             var email = d[`Email (Member ${i})`];
-            if (!(id in crrtNameMap)) {
-              crrtNameMap[id] = {
+            if (!(id in nameMap)) {
+              nameMap[id] = {
                 name: name,
                 email: email,
               }
             }
           }
         })
-        setNameMap(crrtNameMap);
+        setNameMap(nameMap);
       }
     })
   }
 
-  const injectIndividualData = () => {
+  const injectIndividualData = (nameMap) => {
     Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQG3JrF-J-4JASpoqQeU9LZq3mhC7on8_JVmDUh83DU1yZLNoB68rtrUOFuCPXSdCcnvm6ad51zyWhZ/pub?gid=1779625534&single=true&output=csv", {
       download: true,
       header: true,
@@ -173,21 +187,50 @@ export default function ResultsPage(props) {
       skipEmptyLines: true,
       complete: function(results) {
         var data = results.data;
-        var crrtNameMap = nameMap;
         data.forEach(d => {
           var sid = d["Student ID"];
           var name = d["Name"];
           var email = d["Email address"]
-          if (!(sid in crrtNameMap)) {
-            crrtNameMap[sid] = {
+          if (!(sid in nameMap)) {
+            nameMap[sid] = {
               name: name,
               email: email,
             }
           }
         })
-        setNameMap(crrtNameMap);
+        setNameMap(nameMap);
       }
     })
+  }
+
+  const filterData = (data, search, type) => {
+    if (search === "" || search === null || search === undefined) return data;
+    if (type === "individual") {
+      var filteredData = data.filter(d => {
+        return d.sid.includes(search) || d.name.toLowerCase().includes(search)
+      });
+      console.log(filteredData)
+      return filteredData
+    }
+    if (type === "team") {
+      return data.filter(d => {
+        return d.team.toLowerCase().includes(search)
+      });
+    }
+  }
+
+  const handleIndividualSearch = e => {
+    var searchVal = e.target.value.toLowerCase();
+    setIndividualSearch(searchVal);
+    var filteredData = filterData(tableData, searchVal, "individual");
+    setDisplayData(filteredData);
+  }
+
+  const handleTeamSearch = e => {
+    var searchVal = e.target.value.toLowerCase();
+    setTeamSearch(searchVal);
+    var filteredData = filterData(teamData, searchVal, "team");
+    setDisplayTeamData(filteredData);
   }
 
   return (
@@ -213,6 +256,12 @@ export default function ResultsPage(props) {
           <PersonIcon color="secondary" />
           <Typography variant="h6" style={{marginLeft: 5}} >Individual Rank</Typography>
         </div>
+        <Paper className={classes.inputWrapper}>
+          <InputBase placeholder="Search by Student ID or Name..." className={classes.inputField} onChange={handleIndividualSearch} defaultValue="" />
+          <IconButton onClick={handleIndividualSearch}>
+            <SearchIcon />
+          </IconButton>
+        </Paper>
         <TableContainer component={Paper}>
           <Backdrop className={classes.backdrop} open={isLoading}>
             <CircularProgress color="inherit" />
@@ -228,7 +277,7 @@ export default function ResultsPage(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map((d, idx) => {
+              {displayData.map((d, idx) => {
                 if (idx+1 === 1) {
                   return <FirstTableRow key={idx}>
                     <TableCell>{idx+1}</TableCell>
@@ -268,7 +317,12 @@ export default function ResultsPage(props) {
           <GroupIcon color="secondary" />
           <Typography variant="h6" style={{marginLeft: 5}} >Team Rank</Typography>
         </div>
-
+        <Paper className={classes.inputWrapper}>
+          <InputBase placeholder="Search by Team Name..." className={classes.inputField} onChange={handleTeamSearch} defaultValue="" />
+          <IconButton onClick={handleTeamSearch}>
+            <SearchIcon />
+          </IconButton>
+        </Paper>
         <TableContainer component={Paper}>
           <Table style={{minWidth: 700}}>
             <TableHead>
@@ -279,7 +333,7 @@ export default function ResultsPage(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {teamData.map((d, idx) => 
+              {displayTeamData.map((d, idx) => 
                 {
                   if (idx+1 === 1) {
                     return <FirstTableRow key={idx}>

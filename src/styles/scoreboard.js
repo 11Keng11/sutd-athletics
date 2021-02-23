@@ -42,6 +42,13 @@ const scoreboardStyle = theme => ({
   loadText: {
     ...theme.typography.button,
     marginLeft: 10,
+  },
+  inputWrapper: {
+    marginBottom: 10,
+  },
+  inputField: {
+    width: "70vw",
+    paddingLeft: 10
   }
 })
 export default scoreboardStyle
