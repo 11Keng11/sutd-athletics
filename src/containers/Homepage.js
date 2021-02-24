@@ -66,7 +66,7 @@ export default function HomePage(props) {
         <div className= "parallex2">
             <TeamSection/>
         </div>
-        {/* <img className= "parallex2" src={backgroundImg2} />   */}
+
     </div>
     );
 }

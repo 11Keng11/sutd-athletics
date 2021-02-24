@@ -46,7 +46,7 @@ export default function AboutSection(props){
                         To stand a chance to win, simply post running pictures on instagram photos/stories, #hashtag  #SUTDVIRTUALRUN and tag @sutd.athletics. Feel free to caption and share 
                         your interesting experiences with us. We will be featuring some of your stories on our instagram page to. So do give us a follow <a href = "https://www.instagram.com/sutd.athletics/">here</a>  to stay up to date!
                         </h4>
-                        <Button className={classes.navlink} color='danger' > <InstagramIcon/> Stories</Button>
+                        <Button className={classes.navlink} color='danger' disabled="true"> <InstagramIcon/> Stories</Button>
                     </GridItem>
 
                     <GridItem xs={12} sm={12} md={6} className={classes.white}>
