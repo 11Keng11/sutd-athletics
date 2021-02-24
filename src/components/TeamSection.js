@@ -78,7 +78,10 @@ export default function TeamSection() {
                 </h4>
                 <CardBody>
                   <p className={classes.description}>
-                    Contact me on telegram @wuarnhong
+                  Running has taught me that I am capable of so much more than I can imagine. I hated running as a 
+                  child but I still ran, and the more I ran, the easier it became. Before I knew it, I began to love the sport. Running has allowed me to set goals and achieve them. I may not be 
+                  there yet, but after every run, I’ll be closer than where I was before. 
+                  So run fast, run slow, run far, run close, just don’t stop running :^)
                   </p>
                 </CardBody>
                 <CardFooter className={classes.justifyCenter}>

@@ -61,7 +61,7 @@ export default function AboutSection(props){
                         <WifiIcon className={classes.icons} fontSize = "large">></WifiIcon>
                         <h4 className={classes.description}>Join our virtual run telegram group <a href = "https://t.me/joinchat/SMJYoOIsHSczOWRl"> here</a> and follow our Instagram @sutdathletics. Words cannot describe how awesome our community is... Seriously they can’t. 
                         You will meet people who are motivated. We will share stories, wins and posts with you. And make you feel a part of our tribe. 
-                        You will also get direct updates if there is any. Or please do ask any questions regarding any problems, if you have any, we will response ASAP. 
+                        You will also get direct updates. Pease do ask any questions regarding any problems, if you have any, we will response ASAP. 
                         </h4>
 
                     </GridItem>
