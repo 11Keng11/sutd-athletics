@@ -181,11 +181,6 @@ export default function HeaderLinks(props) {
             <HomeIcon className={classes.icons} /> Home
           </Link>
         </ListItem>
-        <ListItem className={classes.listItem}>
-            <Link to="/faq-page" className={classes.navLink}>
-            <LiveHelpIcon className={classes.icons} /> FAQ
-            </Link>
-        </ListItem>
         
         <ListItem className={classes.listItem}>
           <Link
@@ -211,7 +206,11 @@ export default function HeaderLinks(props) {
             <ScoreIcon className={classes.icons} /> Scoreboard
           </Link>
         </ListItem>
-        
+        <ListItem className={classes.listItem}>
+            <Link to="/faq-page" className={classes.navLink}>
+            <LiveHelpIcon className={classes.icons} /> FAQ
+            </Link>
+        </ListItem>
         <ListItem className={classes.listItem}>
           <Tooltip
             id="instagram-tooltip"

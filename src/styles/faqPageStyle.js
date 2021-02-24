@@ -31,7 +31,6 @@ const faqPageStyle = (theme) => ({
         backgroundRepeat:'no-repeat',
         backgroundPosition:'center center',
         position: 'fixed',
-
     },
     main: {
         // background: "#FFFFFF",

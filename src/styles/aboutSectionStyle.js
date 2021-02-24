@@ -18,10 +18,15 @@ const aboutSectionStyle = theme => ({
     },
     light: {
         backgroundColor: "#ffebee",
-        height: "40vh",
+        height: "45vh",
         padding: "0 2vw",
         textAlign: "center",
         
+    },
+    white: {
+        height: "45vh",
+        padding: "0 2vw",
+        textAlign: "center",
     },
     header: {
         textAlign: "center",
@@ -35,10 +40,12 @@ const aboutSectionStyle = theme => ({
         height: '15px'
     },
     icons:{
-        
+        display: "inline-flex",
+        position: "relative",
+        height: "10vh",
     },
     navLink: {
-        color: "inherit",
+        color: "white",
         position: "relative",
         padding: "0.9375rem",
         fontWeight: "400",
@@ -54,6 +61,9 @@ const aboutSectionStyle = theme => ({
           background: "rgba(255, 121, 97, 0.5)"
         },
     },
+    description: {
+        color: '#999'
+    }
     
 });
 

@@ -16,6 +16,16 @@
     top: -10vh;
 }
 
+.parallex2 {
+    position:relative;
+    opacity:1.0;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-image:url("../assets/images/Background2.jpg");
+}
+
 /* .sections {
     background-color: #000 !important;
 } */

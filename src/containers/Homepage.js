@@ -11,10 +11,12 @@ import HeaderLinks from "../components/HeaderLinks.js";
 import InfoSection from "../components/InfoSection.js";
 import Parallax from "../components/Parallax.js";
 import AboutSection from "../components/AboutSection.js";
+import TeamSection from "../components/TeamSection.js";
 
 
 import styles from "../styles/homePageStyle.js";
 import backgroundVideo from '../assets/images/Background.mp4'
+import backgroundImg2 from "../assets/images/Background2.jpg";
 import "../styles/homePage.css"
 
 import bgImg from "../assets/images/Background.png";
@@ -61,7 +63,10 @@ export default function HomePage(props) {
             </div>
         </div>
         <AboutSection onUploadClick={openUpload}/>
-        
+        <div className= "parallex2">
+            <TeamSection/>
+        </div>
+        {/* <img className= "parallex2" src={backgroundImg2} />   */}
     </div>
     );
 }

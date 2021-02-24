@@ -40,7 +40,7 @@ export default function Faqpage(props) {
                                 <h2 className={classes.title}>How do I enter a distance towards the challenge? </h2>
                             </GridItem>
                             <GridItem xs={12} sm={12} md={9}>
-                                <h4 className={classes.description}>Manually – via this (link) to a web. Create an activity after each run, add a distance and time taken and date of run, upload a screenshot of the run and a post-run photo (for validation purpose) and you’re done. </h4>
+                                <h4 className={classes.description}>Manually – via the upload run button in the navigation bar above. Create an activity after each run, add a distance and time taken and date of run, upload a screenshot of the run and a post-run photo (for validation purpose) and you’re done. </h4>
                             </GridItem>
 
                             <GridItem xs={12} sm={12} md={9}>
@@ -63,7 +63,7 @@ export default function Faqpage(props) {
                                 <h2 className={classes.title}>When can I register for the challenge? </h2>
                             </GridItem>
                             <GridItem xs={12} sm={12} md={9}>
-                                <h4 className={classes.description}>From now until the start of the challenge, you can register through the (link here)! If you missed the date but want to hop onto the journey with us, contact @jeff_lai98 (telegram).  </h4>
+                                <h4 className={classes.description}>From now until the start of the challenge, you can register via the sign up button in the navigation bar above! If you missed the date but want to hop onto the journey with us, contact @jeff_lai98 (telegram).  </h4>
                             </GridItem>
 
                             <GridItem xs={12} sm={12} md={9}>
