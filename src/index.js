@@ -15,7 +15,7 @@ unstable_createRoot(document.getElementById('root')).render(
     <Route path="/signup-page" component={SignupPage} />
     <Route path="/faq-page" component={FaqPage} />
     <Route path="/scoreboard-page" component={ResultsPage} />
-    <Route path="/" component={HomePage} />
+    <Route path="/sutd-athletics" component={HomePage} />
   </Switch>
 </Router>);
 

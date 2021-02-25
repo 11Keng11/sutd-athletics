@@ -175,7 +175,7 @@ export default function HeaderLinks(props) {
         <ListItem className={classes.listItem}>
           <Link
             color="transparent"
-            to="/"
+            to="/sutd-athletics"
             className={classes.navLink}
           >
             <HomeIcon className={classes.icons} /> Home
