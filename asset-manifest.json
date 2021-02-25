@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/sutd-athletics/static/css/main.e9d86e28.chunk.css",
+    "main.js": "/sutd-athletics/static/js/main.b96c9975.chunk.js",
+    "main.js.map": "/sutd-athletics/static/js/main.b96c9975.chunk.js.map",
+    "runtime-main.js": "/sutd-athletics/static/js/runtime-main.c2740939.js",
+    "runtime-main.js.map": "/sutd-athletics/static/js/runtime-main.c2740939.js.map",
+    "static/js/2.15bdde80.chunk.js": "/sutd-athletics/static/js/2.15bdde80.chunk.js",
+    "static/js/2.15bdde80.chunk.js.map": "/sutd-athletics/static/js/2.15bdde80.chunk.js.map",
+    "index.html": "/sutd-athletics/index.html",
+    "static/css/main.e9d86e28.chunk.css.map": "/sutd-athletics/static/css/main.e9d86e28.chunk.css.map",
+    "static/js/2.15bdde80.chunk.js.LICENSE.txt": "/sutd-athletics/static/js/2.15bdde80.chunk.js.LICENSE.txt",
+    "static/media/Background.9b8da848.mp4": "/sutd-athletics/static/media/Background.9b8da848.mp4",
+    "static/media/Background.d0ac9bf9.png": "/sutd-athletics/static/media/Background.d0ac9bf9.png",
+    "static/media/homePage.css": "/sutd-athletics/static/media/Background2.a7e79ff4.jpg",
+    "static/media/FinisherT.1c231650.png": "/sutd-athletics/static/media/FinisherT.1c231650.png",
+    "static/media/Jeff.8d99950c.png": "/sutd-athletics/static/media/Jeff.8d99950c.png",
+    "static/media/Logo.5c2e8f3d.png": "/sutd-athletics/static/media/Logo.5c2e8f3d.png",
+    "static/media/Wuarn.d890e769.png": "/sutd-athletics/static/media/Wuarn.d890e769.png",
+    "static/media/videoFail.519fef79.jpg": "/sutd-athletics/static/media/videoFail.519fef79.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c2740939.js",
+    "static/js/2.15bdde80.chunk.js",
+    "static/css/main.e9d86e28.chunk.css",
+    "static/js/main.b96c9975.chunk.js"
+  ]
+}
