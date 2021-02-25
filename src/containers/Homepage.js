@@ -17,6 +17,7 @@ import TeamSection from "../components/TeamSection.js";
 import styles from "../styles/homePageStyle.js";
 import backgroundVideo from '../assets/images/Background.mp4'
 import backgroundImg2 from "../assets/images/Background2.jpg";
+import vidFail from "../assets/images/videoFail.jpg";
 import "../styles/homePage.css"
 
 import bgImg from "../assets/images/Background.png";
@@ -50,7 +51,7 @@ export default function HomePage(props) {
         }}
         {...rest}
         />
-        <video className = "background-video" autoPlay muted loop width="100vw">
+        <video className = "background-video" autoPlay muted loop  poster = {vidFail}>
           <source src={backgroundVideo} type="video/mp4" />
                 Your browser does not support the video tag.
         </video>

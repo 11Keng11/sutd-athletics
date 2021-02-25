@@ -1,9 +1,10 @@
 
 
 .background-video {
-    min-height: 100vh;
-    min-width: 100vw;
+    min-height: 120vh;
+    width: 100vw;
     maxHeight: 1000px;
+    max-width: 105vw; 
     overflow: hidden;
     position: absolute;
     backgroundPosition: center center;
@@ -14,6 +15,7 @@
     display: flex;
     alignItems: center;
     top: -10vh;
+    object-fit: fill !important;
 }
 
 .parallex2 {
