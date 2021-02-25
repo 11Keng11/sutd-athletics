@@ -45,6 +45,7 @@ export default function TeamSection() {
                 <GridItem xs={12} sm={12} md={4} className={classes.itemGrid}>
                   <img src={Jeff} alt="..." className={imageClasses} />
                 </GridItem>
+                <br />
                 <h4 className={classes.cardTitle}>
                   Jeff Lai
                   <br />
@@ -71,6 +72,7 @@ export default function TeamSection() {
                 <GridItem xs={12} sm={12} md={4} className={classes.itemGrid}>
                   <img src={Wuarn} alt="..." className={imageClasses} />
                 </GridItem>
+                <br />
                 <h4 className={classes.cardTitle}>
                   Wuarn Hong
                   <br />
