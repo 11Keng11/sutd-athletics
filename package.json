@@ -1,5 +1,5 @@
 {
-  "homepage": "http://11Keng11.github.io/",
+  "homepage": "http://11Keng11.github.io/sutd-athletics",
   "name": "sutd-athletics",
   "version": "0.1.0",
   "private": true,
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
